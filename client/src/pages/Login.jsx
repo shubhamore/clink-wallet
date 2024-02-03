@@ -28,6 +28,7 @@ export default function Login({ setIsAuth }) {
         const data = await response.json();
         setToken(data.accessToken);
         setUser(data);
+        localStorage.setItem("user", JSON.stringify(data));
         localStorage.setItem("accessToken", data.accessToken);
         toast.success("login successful");
         setIsAuth(true); // Update isAuth state

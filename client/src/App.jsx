@@ -9,34 +9,9 @@ import { useContext, useEffect, useState } from "react"
 import { UserContext } from "./hooks/UserContext"
 
 function App() {
-  const { token, setToken,isAuth, setIsAuth } = useContext(UserContext)
+  const { token, setToken,isAuth, setIsAuth,setUser } = useContext(UserContext)
 
-  const verifyToken = async () => {
-    if (token) {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/verify`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      })
-      if (response.status === 200) {
-        const data = await response.json()
-        console.log(data)
-        setIsAuth(true);
-      } else {
-        localStorage.removeItem("accessToken")
-        setToken(null)
-      }
-    }
-  }
-
-  useEffect(() => {
-    console.log("verify token")
-    if (token) {
-      verifyToken()
-      console.log("verify token called and token is ", token)
-    }
-  }, [])
+  
 
   return (<>
     <Routes>

@@ -16,6 +16,7 @@ app.use(helmet());
 app.use(morgan("common"));
 
 app.use("/auth", require("./routes/authRoute"));
+app.use("/user", require("./routes/userRoute"));
 
 connectDb().then(() => {
     app.listen(port, () => {
