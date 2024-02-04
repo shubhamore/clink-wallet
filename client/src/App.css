@@ -1,0 +1,86 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    z-index: 5;
+}
+body{
+    overflow-x: hidden;
+}
+#root{
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(0,0,0);
+    display: flex;
+    /* justify-content: center; */
+    max-width: 100vw;
+    min-height: 100vh;
+}
+
+div,h1,h2,h3,h4,h5,h6,p{
+    color: white;
+}
+.app{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* min-height: 100vh; */
+    /* padding: 0 10%; */
+    width: 100%;
+    /* background-color: rgb(0,0,0); */
+}
+.icon-heading{
+    font-family: 'Raleway', sans-serif;
+}
+.cursor{
+    width: 1000px;
+    height: 1000px;
+    border-radius: 50%;
+    background: radial-gradient(rgba(255,255,255,0.045),transparent);
+    position: fixed;
+    transform: translate(-50%,-50%);
+    z-index: -1;
+    /* filter: blur(200px); */
+}
+section{
+    width: 90%;
+}
+.gradient-text{
+    background: linear-gradient(90deg, #ff105f, #ffad06);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.gradiant-1{
+    background: radial-gradient(41.76% 41.76% at 50% 50%, #ff105f 0%, rgba(191,9,0,0) 100%);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1000px;
+    height: 1000px;
+    transform: translate(65%,-50%);
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(200px);
+}
+.gradiant-2{
+    background: radial-gradient(41.76% 41.76% at 50% 50%, #ffad06 0%, rgba(191,9,0,0) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1000px;
+    height: 1000px;
+    transform: translate(-75%,0%);
+    z-index: -1;
+    filter: blur(200px);
+}
+.gradiant-3{
+    background: radial-gradient(41.76% 41.76% at 50% 50%, #0606ff 0%, rgba(191,9,0,0) 100%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 750px;
+    height: 750px;
+    transform: translate(-50%,-50%);
+    z-index: -1;
+    filter: blur(200px);
+}

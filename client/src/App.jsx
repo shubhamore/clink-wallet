@@ -10,10 +10,15 @@ import { UserContext } from "./hooks/UserContext"
 
 function App() {
   const { token, setToken,isAuth, setIsAuth,setUser } = useContext(UserContext)
+  const [cursorX, setCursorX] = useState()
+  const [cursorY, setCursorY] = useState()
+  window.addEventListener('mousemove', (e) => {
+    setCursorX(e.clientX)
+    setCursorY(e.clientY)
+  }
+  )
 
-  
-
-  return (<>
+  return (<div className="app text-stone-50 flex items-center justify-center">
     <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={!isAuth ? <Login setIsAuth={setIsAuth} /> : <Navigate to={"/dashboard"} />} />
@@ -21,6 +26,7 @@ function App() {
       <Route path="/dashboard" element={isAuth ? <Dashboard /> : <Navigate to="/login" />} />
       <Route path="*" element={<h1>Not Found</h1>} />
     </Routes>
+    <div className="cursor" style={{left:cursorX+'px',top:cursorY+'px'}}></div>
     <ToastContainer
       position="top-right"
       autoClose={5000}
@@ -34,7 +40,7 @@ function App() {
       theme="dark"
       transition:Bounce
     />
-  </>
+  </div>
   )
 }
 
