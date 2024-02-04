@@ -1,6 +1,7 @@
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 
-export const verifyToken = (req, res, next) => {
+const jwt = require('jsonwebtoken');
+ const verifyToken = (req, res, next) => {
     try{
         let token=req.header("Authorization")
 
@@ -10,7 +11,7 @@ export const verifyToken = (req, res, next) => {
             token=token.slice(7,token.length).trimLeft()
         }
 
-        const verified=jwt.verify(token,process.env.JWT_SECRET)
+        const verified=jwt.verify(token,process.env.SECRET_KEY)
         req.user=verified
         next()
     } catch(err){
@@ -18,3 +19,4 @@ export const verifyToken = (req, res, next) => {
         res.status(500).json(err);
     }
 }
+module.exports = verifyToken;

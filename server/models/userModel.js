@@ -10,4 +10,11 @@ const userSchema = new mongoose.Schema({
     balance: { type: Number},
 }, { timestamps: true });
 
+userSchema.pre("save", function (next) {
+    if (typeof this.balance === "number") {
+        this.balance = parseFloat(this.balance.toFixed(2));
+    }
+    next();
+});
+
 module.exports = mongoose.model("User", userSchema);

@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const Transaction = require("../models/transactionModel");
+const bcrypt = require('bcrypt');
 
 const transferMoney = async (req, res) => {
     console.log("recieved=",req.body)
@@ -10,6 +11,10 @@ const transferMoney = async (req, res) => {
         if(!sender || !receiver){
             return res.status(404).json("user not found");
         }
+        const validPassword = await bcrypt.compare(req.body.password, sender.password);
+        if(!validPassword){
+            return res.status(400).json("wrong password");
+        } 
         if(sender.balance < req.body.amount){
             return res.status(400).json("insufficient balance");
         }
@@ -48,4 +53,34 @@ const getUserByUsername = async (req, res) => {
     }
 }
 
-module.exports = { transferMoney,getUserByUsername }
+const getUserTransactions = async (req, res) => {
+    console.log("recieved=",req.params)
+    try {
+        const username=req.params.username;
+        const transactions = await Transaction.find({ $or: [{ sender: username }, { receiver: username }] });
+        if(!transactions){
+            return res.status(404).json("user not found");
+        }
+        const sortedData= transactions.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        const balanceHistory=[];
+        const moneySent=[];
+        const moneyReceived=[];
+        for(let i=0; i<sortedData.length; i++){
+            if(sortedData[i].sender === username){
+                balanceHistory.push({date: sortedData[i].createdAt, balance: sortedData[i].sender_balance})
+                moneySent.push({date: sortedData[i].createdAt, amount: sortedData[i].amount})
+            }  else{
+                balanceHistory.push({date: sortedData[i].createdAt, balance: sortedData[i].receiver_balance})
+                moneyReceived.push({date: sortedData[i].createdAt, amount: sortedData[i].amount})
+            }
+        }
+        res.status(200).json({sortedData,balanceHistory,moneySent,moneyReceived});
+
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).json(err);
+    }
+}
+
+module.exports = { transferMoney,getUserByUsername,getUserTransactions }

@@ -3,6 +3,7 @@ import Landing from "./pages/Landing"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Dashboard from "./pages/Dashboard"
+import Payment from "./pages/Payment"
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useContext, useEffect, useState } from "react"
@@ -24,6 +25,7 @@ function App() {
       <Route path="/login" element={!isAuth ? <Login setIsAuth={setIsAuth} /> : <Navigate to={"/dashboard"} />} />
       <Route path="/register" element={!isAuth ? <Register /> : <Navigate to={"/dashboard"} />} />
       <Route path="/dashboard" element={isAuth ? <Dashboard /> : <Navigate to="/login" />} />
+      <Route path="/payment" element={isAuth ? <Payment /> : <Navigate to="/login" />} />
       <Route path="*" element={<h1>Not Found</h1>} />
     </Routes>
     <div className="cursor" style={{left:cursorX+'px',top:cursorY+'px'}}></div>
