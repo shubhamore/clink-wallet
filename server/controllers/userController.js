@@ -29,8 +29,8 @@ const transferMoney = async (req, res) => {
             sender: sender.username,
             receiver: receiver.username,
             amount: amount,
-            sender_balance: sender.balance - amount,
-            receiver_balance: receiver.balance + amount
+            sender_balance: (parseFloat(sender.balance) - amount).toFixed(2), // Limiting to 2 decimal places
+            receiver_balance: (parseFloat(receiver.balance) + amount).toFixed(2) // Limiting to 2 decimal places
         });
         const transaction = await newTransaction.save();
         res.status(200).json(transaction);

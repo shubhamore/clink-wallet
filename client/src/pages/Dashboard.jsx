@@ -199,7 +199,7 @@ export default function Dashboard() {
                                 <td className='text-center'>{transaction.sender}</td>
                                 <td className='text-center'>{transaction.receiver}</td>
                                 <td className={`text-center ${amountClass}`}>₹ {transaction.amount}</td>
-                                <td className='text-center'>₹ {transaction.sender_balance}</td>
+                                <td className='text-center'>₹ {isUserSender?transaction.sender_balance:transaction.receiver_balance}</td>
                             </tr>
                         )
                     })}
