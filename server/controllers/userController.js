@@ -8,6 +8,9 @@ const transferMoney = async (req, res) => {
         const sender = await User.findOne({ username: req.body.sender });
         const receiver = await User.findOne({ username: req.body.receiver_username });
         // console.log("before sender=",sender.balance," receiver=",receiver.balance)
+        const amount=parseFloat(req.body.amount);
+
+
         if(!sender || !receiver){
             return res.status(404).json("user not found");
         }
@@ -15,19 +18,19 @@ const transferMoney = async (req, res) => {
         if(!validPassword){
             return res.status(400).json("wrong password");
         } 
-        if(sender.balance < req.body.amount){
+        if(sender.balance < amount){
             return res.status(400).json("insufficient balance");
         }
-        await sender.updateOne({ $inc: { balance: -req.body.amount } });
-        await receiver.updateOne({ $inc: { balance: req.body.amount } });
+        await sender.updateOne({ $inc: { balance: -amount } });
+        await receiver.updateOne({ $inc: { balance: amount } });
 
         // console.log("after sender=",sender.balance," receiver=",receiver.balance)
         const newTransaction = new Transaction({
             sender: sender.username,
             receiver: receiver.username,
-            amount: req.body.amount,
-            sender_balance: sender.balance - req.body.amount,
-            receiver_balance: receiver.balance + req.body.amount
+            amount: amount,
+            sender_balance: sender.balance - amount,
+            receiver_balance: receiver.balance + amount
         });
         const transaction = await newTransaction.save();
         res.status(200).json(transaction);
