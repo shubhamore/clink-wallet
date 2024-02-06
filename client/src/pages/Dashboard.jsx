@@ -78,6 +78,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         getUserTransactions()
+        updateUser()
         console.log(user)
     }, [])
 
