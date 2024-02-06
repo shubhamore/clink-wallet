@@ -87,8 +87,8 @@ section{
 .recharts-tooltip-label{
     color: black;
 }
-.Toastify__toast-container {
-    z-index: 9999;
+.Toastify {
+    z-index: 99;
 }
 table, th, td {
     border: 1px solid white;
