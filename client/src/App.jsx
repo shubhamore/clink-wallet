@@ -13,11 +13,18 @@ function App() {
   const { token, setToken,isAuth, setIsAuth,setUser } = useContext(UserContext)
   const [cursorX, setCursorX] = useState()
   const [cursorY, setCursorY] = useState()
-  window.addEventListener('mousemove', (e) => {
-    setCursorX(e.clientX)
-    setCursorY(e.clientY)
-  }
-  )
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setCursorX(e.clientX)
+      setCursorY(e.clientY)
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [])
 
   return (<div className="app text-stone-50 flex items-center justify-center">
     <Routes>

@@ -1,12 +1,17 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-
+import Transition from './Transition'
 
 export default function Features() {
   return (
-    <motion.section variants={{ hidden: { y: 150, opacity: 0, scale: .5 }, visible: { y: 0, opacity: 1, scale: 1 } }} initial="hidden" whileInView="visible" transition={{ duration: .5 }} className='min-h-screen my-20 flex justify-evenly items-center text-center relative flex-col'>
+    <section className='min-h-screen my-20 flex justify-evenly items-center text-center relative flex-col'>
       <div class="gradiant-3"></div>
+      <Transition>
+
       <h1 className='text-3xl my-10'>Unlock a world of financial freedom with <span className='gradient-text'>Clink</span>. Our secure and user-friendly platform empowers you to manage your money effortlessly.</h1>
+      </Transition>
+      <Transition>
+
       <h1 className='text-7xl my-10'>Features</h1>
       <div className='flex justify-center items-center mt-5 flex-wrap gap-3'>
         <div className='flex justify-center p-5  flex-col mx-2 hover:scale-105 ease-in duration-300 w-96 max-w-screen bg-zinc-900 rounded-xl h-56'>
@@ -22,6 +27,7 @@ export default function Features() {
           <p className='text-xl text-justify text-slate-300'> Connect with friends, split bills, and easily manage shared expenses. Clink makes financial collaboration a breeze.</p>
         </div>
       </div>
-    </motion.section>
+      </Transition>
+    </section>
   )
 }
